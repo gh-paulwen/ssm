@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace用来定位这个配置文件是和哪个接口向对应的 -->
+<mapper namespace="me.paul.ssm.mapper.UserMapper">
+    <!-- useGeneratedKeys="true" 会在插入数据库后将生成的主键保存到参数对象的对应属性中，这里是id，要指定keyProperty和keyColumn -->
+    <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+      <!-- 
+        #{name} 来获取参数对象中的name属性
+        如果参数时基本类型，
+            如 save(String name,int age)
+            对应的SQL写成
+            insert into user(name,age) values(#{0},#{1})
+      -->
+      insert into user(name,age) values(#{name},#{age})
+    </insert>
+    
+    <select id="get" parameterType="int" resultType="User">
+      select * from user where id=#{0}
+    </select>
+</mapper>
